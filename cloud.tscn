@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4ygrgnkxntdv"]
+
+[ext_resource type="Texture2D" uid="uid://ca3xfdstiyi58" path="res://CLOUD.png" id="1_sigx8"]
+
+[node name="cloud" type="CharacterBody2D" groups=["clouds"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.152441, 0.152441)
+texture = ExtResource("1_sigx8")

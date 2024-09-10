@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bm2rfoidlbcy5"]
+[gd_scene load_steps=18 format=3 uid="uid://bm2rfoidlbcy5"]
 
 [ext_resource type="Script" path="res://ball.gd" id="1_0mblk"]
 [ext_resource type="Texture2D" uid="uid://br6v7wnevcqrl" path="res://groundNewer.png" id="1_jh8nu"]
@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://jg0w5qdggnbi" path="res://leftWall.png" id="6_5i6rb"]
 [ext_resource type="Texture2D" uid="uid://ck1nc615p5xx5" path="res://topWall.png" id="7_d8xam"]
 [ext_resource type="FontFile" uid="uid://u7wg463joq30" path="res://Shantell Sans Bouncy Medium.ttf" id="10_ek41b"]
-[ext_resource type="Texture2D" uid="uid://dox3ju80t4txt" path="res://rabbit.png" id="12_5j1a6"]
+[ext_resource type="PackedScene" uid="uid://ck0tywrlqo1vr" path="res://rainbow.tscn" id="13_w12ga"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_12wee"]
 radius = 21.0
@@ -27,51 +27,6 @@ size = Vector2(19.1908, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dgrkm"]
 size = Vector2(1150, 61)
 
-[sub_resource type="GDScript" id="GDScript_w2r47"]
-script/source = "extends CharacterBody2D
-
-@export var speed: float = 0
-var forward = Vector2(-1,0) ##.normalized()
-var stopTimer: int = 5
-var moveTimer: int = 5
-var bunnyMoving: bool = false
-var bunnyEntered: bool = false
-var timer: int = 0
-
-var rng = RandomNumberGenerator.new()
-var timeOfEntry = rng.randf_range(0,1)
-
-
-
-func _physics_process(delta: float) -> void:
-	timer += delta
-	##check for entry
-	if timer == timeOfEntry:
-		bunnyEntered = true
-	if bunnyEntered == true:
-		if bunnyMoving: ## true
-			if stopTimer > 0:
-				speed = 0
-				stopTimer -= 1 
-			else:
-				stopTimer = 300
-				bunnyMoving = true 
-		else: ## false
-			if moveTimer > 0:
-				speed = 150
-				moveTimer -= 1
-			else:
-				moveTimer = 300
-				bunnyMoving = false
-	var collision: KinematicCollision2D = move_and_collide(forward * speed * delta)
-	if collision:
-		if collision.get_collider().is_in_group(\"bricks\"):
-			pass
-			## change to dead plant
-"
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_bw4vw"]
-
 [node name="main" type="Node2D"]
 position = Vector2(0, 5)
 
@@ -80,12 +35,14 @@ position = Vector2(576, 325)
 scale = Vector2(0.203384, 0.203384)
 texture = ExtResource("1_jh8nu")
 
-[node name="ball" type="CharacterBody2D" parent="." node_paths=PackedStringArray("score_label", "start_text")]
-position = Vector2(863, 422)
+[node name="ball" type="CharacterBody2D" parent="." node_paths=PackedStringArray("score_label", "start_text", "rainbow", "double_text")]
+position = Vector2(114, 144)
 motion_mode = 1
 script = ExtResource("1_0mblk")
 score_label = NodePath("../score")
 start_text = NodePath("../startText")
+rainbow = NodePath("../rainbow")
+double_text = NodePath("../double")
 
 [node name="Sprite2D" type="Sprite2D" parent="ball"]
 position = Vector2(0, 0.737)
@@ -268,22 +225,20 @@ position = Vector2(576, 680.5)
 shape = SubResource("RectangleShape2D_dgrkm")
 
 [node name="fastMo" parent="." instance=ExtResource("4_peq5o")]
-position = Vector2(431, 69)
+position = Vector2(155, 251)
 
-[node name="bunny" type="CharacterBody2D" parent="."]
-position = Vector2(1037, 412)
-scale = Vector2(0.717475, 0.717475)
-motion_mode = 1
-script = SubResource("GDScript_w2r47")
+[node name="rainbow" parent="." instance=ExtResource("13_w12ga")]
+self_modulate = Color(1, 1, 1, 0.188235)
+position = Vector2(576, 313)
+scale = Vector2(9.59811, -12.0547)
 
-[node name="Sprite2D" type="Sprite2D" parent="bunny"]
-scale = Vector2(0.141946, 0.141946)
-texture = ExtResource("12_5j1a6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bunny"]
-position = Vector2(-7, 0.999999)
-rotation = 0.174533
-scale = Vector2(2.30787, 3.72063)
-shape = SubResource("CircleShape2D_bw4vw")
+[node name="double" type="RichTextLabel" parent="."]
+offset_left = 48.0
+offset_top = 86.0
+offset_right = 88.0
+offset_bottom = 126.0
+theme_override_fonts/normal_font = ExtResource("10_ek41b")
+theme_override_font_sizes/normal_font_size = 20
+text = "x2!"
 
 [connection signal="timeout" from="ball/slowMo" to="ball" method="_on_slow_mo_timeout"]

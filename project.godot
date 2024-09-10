@@ -23,6 +23,7 @@ end=""
 gameOver=""
 slowMoPowerUp=""
 seeds=""
+clouds=""
 
 [input]
 

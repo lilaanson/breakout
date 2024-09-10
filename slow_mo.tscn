@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://y00fd20c83ir"]
+
+[ext_resource type="Texture2D" uid="uid://b64v2ksaf37rc" path="res://honey.png" id="1_3wxno"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vlbdt"]
+
+[node name="slowMo" type="StaticBody2D" groups=["bricks", "slowMoPowerUp"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.227175, 0.212641)
+texture = ExtResource("1_3wxno")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-11, 0)
+scale = Vector2(1.80613, -2.59253)
+shape = SubResource("CircleShape2D_vlbdt")

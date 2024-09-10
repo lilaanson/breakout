@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhenmyymrho5v"]
+
+[ext_resource type="Texture2D" uid="uid://b4xgflaqo61f1" path="res://seeds.png" id="1_e6p02"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pkdfk"]
+size = Vector2(30, 30)
+
+[node name="seeds" type="CharacterBody2D" groups=["seeds"]]
+motion_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("1_e6p02")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pkdfk")

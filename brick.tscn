@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjwxb2ggke7m8"]
+
+[ext_resource type="Texture2D" uid="uid://c0yorgsghr7lk" path="res://dirt.png" id="1_xn210"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0w1ev"]
+size = Vector2(25.5372, 23.8646)
+
+[node name="brick" type="CharacterBody2D" groups=["bricks"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.23, 0.21)
+texture = ExtResource("1_xn210")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7.7486e-07, 0)
+scale = Vector2(1.87961, 3.01702)
+shape = SubResource("RectangleShape2D_0w1ev")
